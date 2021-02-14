@@ -1,6 +1,34 @@
 # raknalang (räknalang)
 
-A simple arithmetic programming language aimed at learning basic mathematics in native language. Can be adapted to work with most languages.
+A simple arithmetic programming language aimed at learning basic mathematics in a native language. It is designed to be adapted to any language.
+
+## Operators
+
+| symbol | operator     | swedish       |
+| :----: | --------     | --------      |
+| --     | comment      | kommentar     |
+| +      | plus         | plus          |
+| -      | minus        | minus         |
+| >      | larger, more | fler, mer     |
+| <      | fewer, less  | färre, mindre |
+| /      | divided      | delat         |
+| 1      | one          | ett, en       |
+| 2      | two          | två           |
+| 3      | tree         | tre           |
+| 4      | four         | fyra          |
+| 5      | five         | fem           |
+| 6      | six          | sex           |
+| 7      | seven        | sju           |
+| 8      | eight        | åtta          |
+| 9      | nine         | nio           |
+| 10     | ten          | tio           |
+
+## TODO
+
+| symbol | operator | swedish |
+| :----: | -------- | ------- |
+| &      | and      | och     |
+| \|     | or       | eller   |
 
 ## Examples (in Swedish)
 
