@@ -30,6 +30,10 @@ A simple arithmetic programming language aimed at learning basic mathematics in 
 | &      | and      | och     |
 | \|     | or       | eller   |
 
+- top-down parsing (recursive descent)
+
+	<code>(ett plus ett) [är] mer (än tre minus ett)</code>
+
 ## Examples (in Swedish)
 
 	ett plus ett
