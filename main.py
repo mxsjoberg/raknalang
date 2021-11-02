@@ -156,6 +156,6 @@ if (__name__ == "__main__"):
     # file
     file = open('test.rakna', 'r')
     for line in file.readlines():
-        result = interpret(line, True)
+        result = interpret(line, False)
         if result:
-            print(result)
+            print(line, result, '\n')
