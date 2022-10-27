@@ -4,7 +4,7 @@ This is a simple domain-specific programming language to do basic arithmetic cal
 
 ## Getting started
 
-1. `python main.py` to start interpreter
+1. First, `$ python main.py` to start interpreter
 	- `--test` to run tests
 
 		![test](test.png)
@@ -13,10 +13,10 @@ This is a simple domain-specific programming language to do basic arithmetic cal
 
 		![test](debug.png)
 
-2. enter calculation in natural language
+2. then, enter some calculation in natural language
 	- e.g. enter `ett gånger två minus två gånger fyra` + ENTER gives result `-6` (`1 * 2 - 2 * 4`)
 
-3. enter 'q' + ENTER to exit.
+3. finally, enter 'q' + ENTER to exit.
 
 ## Operators
 
@@ -32,24 +32,26 @@ This is a simple domain-specific programming language to do basic arithmetic cal
 
 ## Examples
 
-- TODO English
+**TODO English**
 
-- Swedish
+**Swedish**
+	
+```
+ett plus ett
+2
 
-	ett plus ett
-	2
+två minus tre
+-1
 
-	två minus tre
-	-1
+fem myror är fler än fyra elefanter
+Sant
 
-	fem myror är fler än fyra elefanter
-	Sant
+två lasbilar är färre än en bil
+Falskt
 
-	två lasbilar är färre än en bil
-	Falskt
+tre päron delat med två personer
+1
 
-	tre päron delat med två personer
-	1
-
-	ett plus ett är större än tre minus två
-	Sant
+ett plus ett är större än tre minus två
+Sant
+```
