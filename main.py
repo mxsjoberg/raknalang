@@ -133,36 +133,38 @@ if (__name__ == "__main__"):
     DEBUG = False
     # running
     print("{}Running {}raknalang{}{} interpreter...{}".format(COLORS['header'], COLORS['bold'], COLORS['end'], COLORS['header'], COLORS['end']))
-    # tests
-    if len(sys.argv) > 2 and sys.argv[2] == "--test":
-        from lang.swe import *
-        print(" {}Language: {}, running tests...{}".format(COLORS['header'], sys.argv[1][2:].capitalize(), COLORS['end']))
-        for test in TEST_MAP:
-            try:
-                assert(interpret(test) == TEST_MAP[test])
-                print("  {}{} => {}{}  {}OK{}".format(COLORS['cyan'], test, TEST_MAP[test], COLORS['end'], COLORS['green'], COLORS['end']))
-            except:
-                print("  {}{} => {}{}  {}FAILED{}".format(COLORS['cyan'], test, TEST_MAP[test], COLORS['end'], COLORS['fail'], COLORS['end']))
-        print(" {}Tests done.{}".format(COLORS['header'], COLORS['end']))
-        print("{}Exiting...{}".format(COLORS['header'], COLORS['end']))
-    elif len(sys.argv) > 1:
-        print(" {}Language: {}, type 'q' + ENTER to exit.{}".format(COLORS['header'], sys.argv[1][2:].capitalize(), COLORS['end']))
+    if len(sys.argv) > 1:
         # load lang
-        if sys.argv[1] == '--swedish':
-            from lang.swe import *
-        # debug
-        if len(sys.argv) > 2 and sys.argv[2] == "--debug":
-            DEBUG = True
-            print("  {}DEBUG MODE{}".format(COLORS['warning'], COLORS['end']))
-        # interpret
-        while True:
-            line = input("  > ")
-            # exit
-            if line == "q":
-                print("{}Exiting...{}".format(COLORS['header'], COLORS['end']))
-                break
-            # print
-            print("  {}{}{}".format(COLORS['header'], interpret(line, DEBUG), COLORS['end']))
+        if sys.argv[1] == '--swedish': from lang.swe import *
+        if sys.argv[1] == '--english': from lang.eng import *
+        print(" {}LANGUAGE: {}{}".format(COLORS['warning'], sys.argv[1][2:].upper(), COLORS['end']))
+        # tests
+        if len(sys.argv) > 2 and sys.argv[2] == "--test":
+            print(" {}Running tests...{}".format(COLORS['header'], COLORS['end']))
+            for test in TEST_MAP:
+                try:
+                    assert(interpret(test) == TEST_MAP[test])
+                    print("  {}{} => {}{}  {}OK{}".format(COLORS['cyan'], test, TEST_MAP[test], COLORS['end'], COLORS['green'], COLORS['end']))
+                except:
+                    print("  {}{} => {}{}  {}FAILED{}".format(COLORS['cyan'], test, TEST_MAP[test], COLORS['end'], COLORS['fail'], COLORS['end']))
+            print(" {}Tests done.{}".format(COLORS['header'], COLORS['end']))
+            print("{}Exiting...{}".format(COLORS['header'], COLORS['end']))
+        # run
+        else:
+            print(" {}Type 'q' + ENTER to exit.{}".format(COLORS['header'], COLORS['end']))
+            # debug
+            if len(sys.argv) > 2 and sys.argv[2] == "--debug":
+                DEBUG = True
+                print("  {}DEBUG MODE{}".format(COLORS['warning'], COLORS['end']))
+            # interpret
+            while True:
+                line = input("  > ")
+                # exit
+                if line == "q":
+                    print("{}Exiting...{}".format(COLORS['header'], COLORS['end']))
+                    break
+                # print
+                print("  {}{}{}".format(COLORS['header'], interpret(line, DEBUG), COLORS['end']))
     else:
         print(" {}Usage: --lang --option{} (options: test, debug)".format(COLORS['warning'], COLORS['end']))
 
