@@ -1,52 +1,19 @@
 #!/usr/bin/python
+import sys
 
-# lang : swedish
-OPERATORS = {
-    'plus': '+',
-    'lägg till': '+',
-    'minus': '-',
-    'dra av': '-',
-    'fler': '>',
-    'mer': '>',
-    'större': '>',
-    'färre': '<',
-    'mindre': '<',
-    'delat': '/',
-    'delad': '/',
-    'gånger': '*',
+COLORS = {
+    'header': '\033[95m',
+    'blue': '\033[94m',
+    'cyan': '\033[96m',
+    'green': '\033[92m',
+    'warning': '\033[93m',
+    'fail': '\033[91m',
+    'end': '\033[0m',
+    'bold': '\033[1m',
+    'underline': '\033[4m',
 }
 
-NUMBERS = {
-    'noll': 0,
-    'ett': 1,
-    'två': 2,
-    'tre': 3,
-    'fyra': 4,
-    'fem': 5,
-    'sex': 6,
-    'sju': 7,
-    'åtta': 8,
-    'nio': 9,
-    'tio': 10,
-    'elva': 11,
-    'tolv': 12,
-    'tretton': 13,
-    'fjorton': 14,
-    'femton': 15,
-    'sexton': 16,
-    'sjutton': 17,
-    'arton': 18,
-    'nitton': 19,
-    'tjugo': 20,
-    # variations
-    'en': 1
-}
-
-LANG = {
-    True: 'Sant',
-    False: 'Falskt',
-}
-# ./lang
+PRECEDENCE = { '/': 2, '*': 2, '+': 1, '-': 1, '>': 0, '<': 0 }
 
 # lexer
 def lexer(line):
@@ -68,6 +35,7 @@ def lexer(line):
 
 # parser : recursive-descent
 def parser(ast, tokens):
+    operator = []
     ast = ast.copy()
     while len(tokens) > 0:
         token = tokens[0]
@@ -75,13 +43,31 @@ def parser(ast, tokens):
         if str(token).isnumeric():
             tokens.remove(token)
             ast['children'].append(int(token))
-        # otherwise
-        elif ast['node'] and token in ['>', '<', '/', '*']:
+        # operator
+        elif token in PRECEDENCE:
             tokens.remove(token)
-            ast = { 'node': token, 'children': [ast, parser({ 'node': None, 'children': [] }, tokens)] }
+            # precedence
+            while len(operator) > 0:
+                op = operator.pop()
+                if op in PRECEDENCE and PRECEDENCE[op] >= PRECEDENCE[token]:
+                    ast['node'] = op
+                    ast = { 'node': token, 'children': [ast, parser({ 'node': None, 'children': [] }, tokens)] }
+                else:
+                    operator.append(op)
+                    break
+            
+            operator.append(token)
+            # tokens.remove(token)
+            # ast = { 'node': token, 'children': [ast, parser({ 'node': None, 'children': [] }, tokens)] }
         else:
             tokens.remove(token)
             ast['node'] = token
+
+    while len(operator) > 0:
+        op = operator.pop()
+        ast['node'] = op
+        # ast = { 'node': op, 'children': [ast, parser({ 'node': op, 'children': [] }, tokens)] }
+
     return ast
 
 # evaluate
@@ -109,11 +95,14 @@ def interpret(text, debug = False):
     if text.startswith('--') or text.isspace():
         return
     else:
-        # print(text.strip())
         tokens = lexer(text)
-        if debug: print('lexer: ', tokens)
+        if debug:
+            # print('lexer: ', tokens)
+            print("  {}lexer (tokens): {}{}".format(COLORS['cyan'], tokens, COLORS['end']))
         ast = parser({ 'node': None, 'children': [] }, tokens)
-        if debug: print('parser: ', ast)
+        if debug:
+            # print('parser: ', ast)
+            print("  {}parser (AST): {}{}".format(COLORS['cyan'], ast, COLORS['end']))
         # plus
         if ast['node'] == '+':
             return evaluate(ast['children'][0]) + evaluate(ast['children'][1])
@@ -123,15 +112,15 @@ def interpret(text, debug = False):
         # greater than
         if ast['node'] == '>':
             if (evaluate(ast['children'][0]) > evaluate(ast['children'][1])):
-                return LANG[True]
+                return BOOLEAN[True]
             else:
-                return LANG[False]
+                return BOOLEAN[False]
         # less than
         if ast['node'] == '<':
             if (evaluate(ast['children'][0]) < evaluate(ast['children'][1])):
-                return LANG[True]
+                return BOOLEAN[True]
             else:
-                return LANG[False]
+                return BOOLEAN[False]
         # divide
         if ast['node'] == '/':
             return int(evaluate(ast['children'][0]) / evaluate(ast['children'][1]))
@@ -141,21 +130,39 @@ def interpret(text, debug = False):
     return
 
 if (__name__ == "__main__"):
-    assert(interpret('ett plus ett') == 2)
-    assert(interpret('två minus tre') == -1)
-    assert(interpret('fem myror är fler än fyra elefanter') == LANG[True])
-    assert(interpret('två lasbilar är färre än en bil') == LANG[False])
-    assert(interpret('två äpplen delat på två personer') == 1)
-    assert(interpret('tre päron delat med två personer') == 1)
-    assert(interpret('en glass delad med fyra personer') == 0)
-    assert(interpret('ett plus ett är större än tre minus två') == LANG[True])
-    assert(interpret('fyra ben gånger två kor') == 8)
-    assert(interpret('två äpplen plus fyra päron är mer än ett päron') == LANG[True])
-    assert(interpret('två kronor gånger ett är mindre än en krona gånger fyra') == LANG[True])
-    assert(interpret('två gånger två gånger två') == 8)
-    # file
-    file = open('test.rakna', 'r')
-    for line in file.readlines():
-        result = interpret(line, False)
-        if result:
-            print(line, result, '\n')
+    DEBUG = False
+    # running
+    print("{}Running {}raknalang{}{} interpreter...{}".format(COLORS['header'], COLORS['bold'], COLORS['end'], COLORS['header'], COLORS['end']))
+    # tests
+    if len(sys.argv) > 2 and sys.argv[2] == "--test":
+        from lang.swe import *
+        print(" {}Language: {}, running tests...{}".format(COLORS['header'], sys.argv[1][2:].capitalize(), COLORS['end']))
+        for test in TEST_MAP:
+            try:
+                assert(interpret(test) == TEST_MAP[test])
+                print("  {}{} => {}{}  {}OK{}".format(COLORS['cyan'], test, TEST_MAP[test], COLORS['end'], COLORS['green'], COLORS['end']))
+            except:
+                print("  {}{} => {}{}  {}FAILED{}".format(COLORS['cyan'], test, TEST_MAP[test], COLORS['end'], COLORS['fail'], COLORS['end']))
+        print(" {}Tests done.{}".format(COLORS['header'], COLORS['end']))
+        print("{}Exiting...{}".format(COLORS['header'], COLORS['end']))
+    elif len(sys.argv) > 1:
+        print(" {}Language: {}, type 'q' + ENTER to exit.{}".format(COLORS['header'], sys.argv[1][2:].capitalize(), COLORS['end']))
+        # load lang
+        if sys.argv[1] == '--swedish':
+            from lang.swe import *
+        # debug
+        if len(sys.argv) > 2 and sys.argv[2] == "--debug":
+            DEBUG = True
+            print("  {}DEBUG MODE{}".format(COLORS['warning'], COLORS['end']))
+        # interpret
+        while True:
+            line = input("  > ")
+            # exit
+            if line == "q":
+                print("{}Exiting...{}".format(COLORS['header'], COLORS['end']))
+                break
+            # print
+            print("  {}{}{}".format(COLORS['header'], interpret(line, DEBUG), COLORS['end']))
+    else:
+        print(" {}Usage: --lang --option{} (options: test, debug)".format(COLORS['warning'], COLORS['end']))
+
