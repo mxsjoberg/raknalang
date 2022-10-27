@@ -1,6 +1,22 @@
 # raknalang (räknalang)
 
-A simple educational programming language for learning basic arithmetics in native language.
+This is a simple domain-specific programming language to do basic arithmetic calculations in natural language.
+
+## Getting started
+
+1. `python main.py` to start interpreter
+	- `--test` to run tests
+
+		![test](test.png)
+
+	- `--debug` to show output from lexer and parser
+
+		![test](debug.png)
+
+2. enter calculation in natural language
+	- e.g. enter `ett gånger två minus två gånger fyra` + ENTER gives result `-6` (`1 * 2 - 2 * 4`)
+
+3. enter 'q' + ENTER to exit.
 
 ## Operators
 
@@ -14,44 +30,26 @@ A simple educational programming language for learning basic arithmetics in nati
 | /      | DIVIDE       | delat, delad      |
 | *      | MULTIPLY     | gånger 	        |
 
-## TODO
+## Examples
 
-| symbol | operator  	| swedish  			|
-| :----: | --------  	| -------  			|
-| &      | AND       	| och      			|
-| \|     | OR        	| eller    			|
+- TODO English
 
-## Examples (in Swedish)
+- Swedish
 
 	ett plus ett
-	 2 
+	2
 
 	två minus tre
-	 -1 
+	-1
 
 	fem myror är fler än fyra elefanter
-	 Sant 
+	Sant
 
 	två lasbilar är färre än en bil
-	 Falskt 
-
-	två äpplen delat på två personer
-	 1 
+	Falskt
 
 	tre päron delat med två personer
-	 1 
+	1
 
 	ett plus ett är större än tre minus två
-	 Sant 
-
-	fyra ben gånger två kor
-	 8 
-
-	två äpplen plus fyra päron är mer än ett päron
-	 Sant 
-
-	två kronor gånger ett är mindre än en krona gånger fyra
-	 Sant 
-
-	två gånger två gånger två
-	 8 
+	Sant
