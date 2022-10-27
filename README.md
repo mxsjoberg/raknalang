@@ -16,7 +16,13 @@ This is a simple domain-specific programming language to do basic arithmetic cal
 2. then, enter some calculation in natural language
 	- e.g. enter `ett gånger två minus två gånger fyra` + ENTER gives result `-6` (`1 * 2 - 2 * 4`)
 
+		![test](run.png)
+
 3. finally, enter 'q' + ENTER to exit.
+
+## TODO
+
+- use any number as input, see [https://michaelsjoeberg.com/programming/python/project-euler-problems/number-letter-counts](https://michaelsjoeberg.com/programming/python/project-euler-problems/number-letter-counts)
 
 ## Operators
 
@@ -32,26 +38,46 @@ This is a simple domain-specific programming language to do basic arithmetic cal
 
 ## Examples
 
-**TODO English**
+**English**
+
+```
+> one plus one
+2
+
+> two minus tree
+-1
+
+> five ants are more than four elephants
+True
+
+> two apples split on two people
+1
+
+> tree pears divided with two people
+1
+
+> one times two minus two times four
+-6
+```
 
 **Swedish**
 	
 ```
-ett plus ett
+> ett plus ett
 2
 
-två minus tre
+> två minus tre
 -1
 
-fem myror är fler än fyra elefanter
+> fem myror är fler än fyra elefanter
 Sant
 
-två lasbilar är färre än en bil
+> två lasbilar är färre än en bil
 Falskt
 
-tre päron delat med två personer
+> tre päron delat med två personer
 1
 
-ett plus ett är större än tre minus två
+> ett plus ett är större än tre minus två
 Sant
 ```
