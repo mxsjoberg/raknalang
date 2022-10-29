@@ -7,7 +7,7 @@ This is a simple domain-specific programming language to do basic arithmetic cal
 1. First, `$ python main.py --lang` to start interpreter (lang: swedish, english)
 	- `--test` to run tests
 
-	```
+	```bash
 	$ python main.py --swedish --test
 	Running raknalang interpreter...
 	 LANGUAGE: SWEDISH
@@ -31,7 +31,7 @@ This is a simple domain-specific programming language to do basic arithmetic cal
 
 	- `--debug` to show output from lexer and parser
 
-	```
+	```bash
 	$ python main.py --english --debug
 	Running raknalang interpreter...
 	 LANGUAGE: ENGLISH
