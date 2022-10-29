@@ -21,7 +21,7 @@ NUMBERS = {
     'zero': 0,
     'one': 1,
     'two': 2,
-    'tree': 3,
+    'three': 3,
     'four': 4,
     'five': 5,
     'six': 6,
@@ -46,10 +46,10 @@ BOOLEAN = {
 }
 TEST_MAP = {
     'one plus one': 2,
-    'two minus tree': -1,
+    'two minus three': -1,
     'five ants are more than four elephants': BOOLEAN[True],
     'two apples split on two people': 1,
-    'tree pears divided with two people': 1,
+    'three pears divided with two people': 1,
     'one times two minus two times four': -6,
 }
 # ./lang
