@@ -1,6 +1,6 @@
 # raknalang (räknalang)
 
-This is a simple domain-specific programming language to do basic arithmetic calculations in natural language.
+This is a simple domain-specific programming language to do basic arithmetic in natural language.
 
 ## Getting started
 
