@@ -1,3 +1,12 @@
+		    _                _                   
+		   | |              | |                  
+	  _ __ __ _| | ___ __   __ _| | __ _ _ __   __ _ 
+	 | '__/ _` | |/ / '_ \ / _` | |/ _` | '_ \ / _` |
+	 | | | (_| |   <| | | | (_| | | (_| | | | | (_| |
+	 |_|  \__,_|_|\_\_| |_|\__,_|_|\__,_|_| |_|\__, |
+						    __/ |
+						   |___/ 
+
 # raknalang (räknalang)
 
 This is a simple domain-specific programming language to do basic arithmetic in natural language.
